@@ -1,11 +1,13 @@
-from utils.utils import display_dict
+from utils.utils import display_dict, display_mtx
 from utils.config import Config
 import utils.file as file
 import utils.api as api
 import json
 import os
 
+# normal grid positions : 1 2 3 4 5
 # normal grid : 1 to 50
+# star grid positions : 1 2
 # star grid : 1 to 12
 
 
@@ -38,7 +40,18 @@ def get_occurence_rate_per_number(data):
     grid = {x:(grid[x]/length*100) for x in grid}    
     stars = {x:(stars[x]/length*100) for x in stars}       
     return grid, stars
-    
+ 
+def get_occurence_rate_per_number_per_position(data):
+    matrix_g = {str(x):{str(y):0 for y in range(1, 51)} for x in range(1,6)}
+    matrix_star = {str(x):{str(y):0 for y in range(1, 13)} for x in range(1,3)}
+    length = len(data)
+    for res in data:
+        for idx, x in enumerate(res["numbers"]):
+            matrix_g[str(idx+1)][x] += 1
+        for idx, x in enumerate(res["stars"]):
+            matrix_star[str(idx+1)][x] += 1
+    return matrix_g, matrix_star
+        
 
 
 if __name__ == "__main__":
@@ -47,5 +60,7 @@ if __name__ == "__main__":
     grid_rate, stars_rate = get_occurence_rate_per_number(data)
     display_dict('grid',grid_rate,'%\n')
     display_dict('stars',stars_rate,'%\n')
+    mtx_g, mtx_star = get_occurence_rate_per_number_per_position(data)
+    display_mtx('grid', mtx_g)
     pass
 
