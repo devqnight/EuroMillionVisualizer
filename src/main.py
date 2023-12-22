@@ -4,6 +4,7 @@ from utils.config import Config
 import utils.file as file
 import utils.api as api
 import utils.mail as mail
+from datetime import datetime
 import json
 import os
 
@@ -81,6 +82,11 @@ def check_draw_mail(draw):
 
 def check_date(date):
     draw = api.get_parsed_data_from_api_param_date((Config()).cfg['API'],date)
+    check_draw_mail(draw[0])
+    
+def check_day():
+    day = datetime.today().strftime('%Y-%m-%d')
+    draw = api.get_parsed_data_from_api_param_date((Config()).cfg['API'],day)
     check_draw_mail(draw[0])
 
 def check_all_ever():
