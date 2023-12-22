@@ -22,3 +22,10 @@ def display_mtx(name, data):
             
 def padding(length, word):
     return (length - len(word)) * ' '
+
+def strToArrayNmbrs(strg):
+    return [int(x) for x in strg.split(',')]
+
+
+def arrayToStr(array):
+    return '['+','.join(str(e) for e in array)+']'
