@@ -72,6 +72,7 @@ def check_draw_mail(draw):
         if test in list(winning_grids.values()):
             res.append([x['numbers'],x['stars'],test])
     message += '\n'
+    message += 'Winning numbers: ' + arrayToStr(draw['numbers']) + ', stars: ' + arrayToStr(draw['stars']) + '\n'
     if len(res) == 0:
         message += 'Nothing won today...\n'
     else:
